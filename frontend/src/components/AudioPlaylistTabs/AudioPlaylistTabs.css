@@ -1,0 +1,27 @@
+.audioPlaylistTabsContainer {
+  height: calc(100% - 91.0vh);
+  width: 50vh;
+  position: absolute;
+  left: 74vh;
+  bottom: calc(100% - 88vh);
+  background: rgb(174, 174, 174);
+  box-sizing: border-box;
+  z-index: 1;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.audioPlaylistTabsContainer .infoText {
+  margin-top: 10px; /* Adjust the margin to move the text closer to the buttons */
+}
+.buttonContainer {
+  margin-top: -10px;
+  max-height: 7vh; /* Limit the maximum height of the button container */
+  overflow-y: auto;
+}
+
+.MuiToggleButton-root {
+  height: 40px; /* Adjust the height to make the buttons bigger */
+}

@@ -1,0 +1,142 @@
+.audioPlaylist {
+  height: 85%;
+  width: 50vh;
+  display: flex;
+  position: absolute;
+  margin-left: 74vh;
+  margin-top: 0vh; 
+  background:  rgba(0, 0, 0, 0.8);
+  overflow: hidden; 
+}
+
+.audioPlaylist .playlistNameContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  font-size: 14px; 
+  color: #ffffff;
+  padding: 1vh 1vh;
+  margin-top: -25px;
+  margin-left: -8px;
+}
+
+.audioPlaylist .songsContainer{
+  height: 81.5%;
+  width: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  top: 4.5vh;
+  background-color: rgba(153, 153, 153, 0.5);
+  border-radius: 0.2em;
+}
+
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.audioPlaylist .songsContainer .songs {
+  font-size: 11px;
+  font-weight: 400;
+  color: #b9b9b9;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.audioPlaylist .songsContainer .songs:hover, 
+songs.active{
+  color: #ffffff;
+  transition: 0.3s; 
+}
+
+.audioPlaylist .songsContainer .song {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  width: 100%;
+  border-bottom: 1px solid #cacaca33;
+  margin-top: -10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.audioPlaylist .songsContainer .song .section .info {
+  margin-top: 1px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.audioPlaylist .songsContainer .song .section .info .index{
+  margin-left: -20px;
+  margin-right: 5px;
+}
+
+.audioPlaylist .songsContainer .song .section .info .songName {
+  width: 20%;
+
+  margin-right: -20px;
+}
+
+.audioPlaylist .songsContainer .song .section .info .dataset {
+  width: 20%;
+  margin-left: 30px;
+}
+
+.audioPlaylist .songsContainer .song .section .info .duration {
+  margin-right: 20px;
+}
+
+.audioPlaylist .songsContainer .song .section .info .likeButton {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0px
+}
+
+.audioPlaylist .songsContainer .song .soundscapeInfo {
+  width: 70%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -30px;
+  margin-left: 13.9vh;
+}
+
+
+
+.audioPlaylist .songsContainer .song .section .info .savedSongName {
+  width: 20%;
+  margin-right: 20px;
+}
+
+.audioPlaylist .songsContainer .song .section .info .savedDataset {
+  width: 20%;
+  margin-left: -10px;
+  margin-right: 20px;
+}
+
+.audioPlaylist .songsContainer .song .savedSoundscapeInfo {
+  width: 70%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -40px;
+  margin-left: 10.9vh;
+}
+
+.audioPlaylist .playlistNameContainer .savedLikeButton {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-left: 6px
+}
+
+
+.songs.clicked {
+  background-color: rgb(0, 106, 16);
+}

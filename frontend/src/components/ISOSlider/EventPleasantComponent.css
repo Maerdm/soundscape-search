@@ -1,0 +1,26 @@
+.sliderIso{
+    height: calc(100% - 79vh);
+    flex-grow: 1;
+    width: 74vh;
+    position: absolute;
+    margin-left: 0vh;
+    margin-top: 74vh;
+    bottom: 0;
+    background: rgb(187, 187, 187);
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.sliderIso .sliderPleasantness{
+    margin-top: 5%;
+    margin-left: 3%;
+    width: 96%;
+}
+
+.sliderIso .sliderEventfullness {
+    margin-top: 4%;
+    margin-left: 3%;
+    width: 96%;
+}
+

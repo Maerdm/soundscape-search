@@ -1,0 +1,98 @@
+.sliderSoundscapeItems {
+    position: relative; 
+    height: 81.7vh;
+    flex-grow: 1;
+    margin-left: 124vh;
+    overflow: hidden;
+    background: rgb(136, 136, 136);
+    
+}
+
+.sliderSoundscapeItems .description {
+    width: 100%;
+    height: 4.4vh;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+    background: rgb(164, 164, 164);
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
+  }
+  
+
+.sliderSoundscapeItems .switchButtonsComponent {
+    width: 100%;
+    height: 5.6vh;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+    display: flex;
+    background: rgb(164, 164, 164);
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.sliderSoundscapeItems .switchButtonsComponent .switchButton {
+
+    display: flex;
+    align-items: center;
+    margin-left: 2%;
+
+}
+.sliderSoundscapeItems .sliderList {
+    display: flex; 
+    flex-wrap: wrap;
+    width: 100%;
+    height: 69vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.sliderSoundscapeItems .sliderList .sliderPleasent,
+.sliderSoundscapeItems .sliderList .sliderVibrant,
+.sliderSoundscapeItems .sliderList .sliderEventful,
+.sliderSoundscapeItems .sliderList .sliderChaotic,
+.sliderSoundscapeItems .sliderList .sliderAnnoying,
+.sliderSoundscapeItems .sliderList .sliderMonotonous,
+.sliderSoundscapeItems .sliderList .sliderUneventful,
+.sliderSoundscapeItems .sliderList .sliderCalm,
+.sliderSoundscapeItems .sliderList .sliderNature,
+.sliderSoundscapeItems .sliderList .sliderHuman,
+.sliderSoundscapeItems .sliderList .sliderHousehold,
+.sliderSoundscapeItems .sliderList .sliderInstallation,
+.sliderSoundscapeItems .sliderList .sliderSignals,
+.sliderSoundscapeItems .sliderList .sliderTraffic,
+.sliderSoundscapeItems .sliderList .sliderSpeech,
+.sliderSoundscapeItems .sliderList .sliderMusic {
+    margin-top: 1.1vh;
+    margin-bottom: 1.9vh;
+    display: flex;
+    margin-left: 2%;
+    width: 90%;
+    height: 8%;
+}
+
+.sliderSoundscapeItems .sliderList .sliderLAeq,
+.sliderSoundscapeItems .sliderList .sliderLoudness,
+.sliderSoundscapeItems .sliderList .sliderFluctuationStrength, 
+.sliderSoundscapeItems .sliderList .sliderRelativeApproach, 
+.sliderSoundscapeItems .sliderList .sliderSharpness, 
+.sliderSoundscapeItems .sliderList .sliderRoughness,
+.sliderSoundscapeItems .sliderList .sliderTonality {
+    margin-top: 5%;
+    margin-left: 3%;
+    width: 96%;
+    display: flex;
+}
+
+.sliderSoundscapeItems .sliderList .sliderLAeqVal {
+    margin-top: -1%;
+    margin-left: 3%;
+    width: 96%;
+    display: flex;
+
+}
+
+.sliderSoundscapeItems .sliderList .sliderLAeqVal .MuiSlider-thumb {
+    width: 10px; /* Adjust the width to your desired thumb size */
+    height: 10px; /* Adjust the height to your desired thumb size */
+    margin-top: 0px; /* Adjust the margin-top to center the thumb vertically */
+    margin-left: 0px; /* Adjust the margin-left to center the thumb horizontally */
+}

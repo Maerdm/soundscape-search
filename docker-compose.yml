@@ -1,0 +1,32 @@
+  version: "3"
+  services:
+    backend:
+      build:
+        context: backend/
+        dockerfile: Dockerfile
+      image: soundscape-backend
+      volumes:
+      - /Users/maed/Documents/Projects/SSClaVis/Dataset/Recordings/Recordings_matched:/app/recordings
+      environment:
+        MongoClient: "mongodb://host.docker.internal:27017" # for use with docker
+        IP_AUDIO_SERVER: "http://127.0.0.1:8000/"
+      ports:
+        - 8000:8000
+
+    frontend:
+      build:
+        context: frontend/
+        dockerfile: Dockerfile
+      image: soundscape-frontend
+      environment:
+        REACT_APP_IPAdress: "http://127.0.0.1:8000/"
+      ports:
+        - 3000:3000
+      depends_on: ["backend"]
+
+    audioserver:
+      image: httpd:2.4
+      ports:
+        - "8080:80"
+      volumes:
+        - /Users/maed/Documents/Projects/SSClaVis/Dataset/Recordings/Recordings_matched:/usr/local/apache2/htdocs/

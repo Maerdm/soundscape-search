@@ -1,0 +1,60 @@
+.soundScapeInfo {
+    position: absolute;
+    left: 124vh;
+    width: calc(100vw - 124vh);
+    height: 11.95%;
+    background: rgb(207, 207, 207);
+    display: flex; /* Use Flexbox */
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    align-items: stretch; /* Stretch content vertically */
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.soundScapeInfo {
+    grid-column: 2; /* Place it in the second column */
+    grid-row: 2; /* Place it in the second row */
+    background: rgb(207, 207, 207);
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.infos {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.activity-text-container,
+.location-text-container {
+    word-break: break-all;
+    margin-left: 2%;
+    margin-top: 4%;
+}
+
+.activity-text-container {
+    word-break: break-all;
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: 1%; /* Adjust the value to control the space */
+}
+
+.location-text-container {
+    word-break: break-all;
+    margin-left: 2%;
+    margin-top: 4%;
+}
+
+
+
+
+.infos .source-text,
+.infos .activity-text,
+.infos .location-text {
+    
+    word-break: break-all;
+    font-weight: bold;
+}
