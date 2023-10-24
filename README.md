@@ -12,9 +12,9 @@ __Acoustic features:__ LAeq_default, N5_default, FavgArith_default, RAavgArith, 
 
 __Additional information:__ Activity Location, FGsource
 
-Do to privacy policies, we are not allowed to publish the audio files. For testing purposes, we included a tiny dataset consiting of 20 audiofiles (check the dataset folder). You can find the entire dataset (without audio files) here: www.whereisthedataset.com
+Do to privacy policies, we are not allowed to publish the audio files. For testing purposes, we included a tiny dataset consiting of 20 audiofiles (check the dataset folder). You can find the entire dataset (without audio files) here: linkt to dataset
 
-![editor](https://github.com/Maerdm/soundscape-search/assets/43093891/e5842217-081c-4816-97a5-973f1884d41a)
+![editor](https://github.com/Maerdm/soundscape-search/assets/43093891/3fd31bf0-60da-4ecf-9253-940c775391ef)
 
 ### Running with docker
 
