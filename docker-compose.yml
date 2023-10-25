@@ -6,10 +6,10 @@
         dockerfile: Dockerfile
       image: soundscape-backend
       volumes:
-      - /Users/maed/Documents/Projects/SSClaVis/Dataset/Recordings/Recordings_matched:/app/recordings
+      - /path_to_recordings:/app/recordings
       environment:
-        MongoClient: "mongodb://host.docker.internal:27017" # for use with docker
-        IP_AUDIO_SERVER: "http://127.0.0.1:8000/"
+        MongoClient: "mongodb://host.docker.internal:27017"
+        IP_AUDIO_SERVER: "http://127.0.0.1:8080/"
       ports:
         - 8000:8000
 
@@ -29,4 +29,4 @@
       ports:
         - "8080:80"
       volumes:
-        - /Users/maed/Documents/Projects/SSClaVis/Dataset/Recordings/Recordings_matched:/usr/local/apache2/htdocs/
+        - /path_to_recordings:/usr/local/apache2/htdocs/
