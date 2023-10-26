@@ -12,9 +12,7 @@ __Acoustic features:__ LAeq_default, N5_default, FavgArith_default, RAavgArith, 
 
 __Additional information:__ Activity Location, FGsource (description of the most salient sound source)
 
-You can find inforamtion about the ranges of each item and general information about the dataset in *dataset/store_to_database.ipynb*.
-
-Due to privacy policies, we are not allowed to publish the audio files. For testing purposes, we included a tiny dataset consiting of 20 audiofiles (check the dataset folder). You can find the entire dataset (without audio files) here: https://doi.org/10.5281/zenodo.7858848
+You can find inforamtion about the ranges of each item and general information about the dataset in *dataset/store_to_database.ipynb*.Due to privacy policies, we are not allowed to publish the audio files. For testing purposes, we included a tiny dataset consiting of 20 audiofiles (check the dataset folder). You can find the entire dataset (without audio files) here: https://doi.org/10.5281/zenodo.7858848
 
 ![editor](https://github.com/Maerdm/soundscape-search/assets/43093891/3fd31bf0-60da-4ecf-9253-940c775391ef)
 
