@@ -10,16 +10,17 @@ __Soundscape composition:__ SC_Nature, SC_Human, SC_Household, SC_Installation, 
 
 __Acoustic features:__ LAeq_default, N5_default, FavgArith_default, RAavgArith, SavgArith_default, R_default, T_default
 
-__Additional information:__ Activity Location, FGsource
+__Additional information:__ Activity Location, FGsource (description of the most salient sound source)
 
-Do to privacy policies, we are not allowed to publish the audio files. For testing purposes, we included a tiny dataset consiting of 20 audiofiles (check the dataset folder). You can find the entire dataset (without audio files) here: linkt to dataset
+You can find inforamtion about the ranges of each item and general information about the dataset in *dataset/store_to_database.ipynb*.
+
+Due to privacy policies, we are not allowed to publish the audio files. For testing purposes, we included a tiny dataset consiting of 20 audiofiles (check the dataset folder). You can find the entire dataset (without audio files) here: https://doi.org/10.5281/zenodo.7858848
 
 ![editor](https://github.com/Maerdm/soundscape-search/assets/43093891/3fd31bf0-60da-4ecf-9253-940c775391ef)
 
 ### Running with docker
 
-1. install mongoDB on your machine and load dataset to the database
-    
+1. install mongoDB on your machine and load datasets to the database
     --> for further information check: *dataset/store_to_database.ipynb*
 2. in backend/src/config.py set the ip adress of ip_audio_server to the ip adress of your local machine
 3. in *frontend/src/ip_config.js*, also set the ip adress of your local machine
@@ -28,14 +29,8 @@ Do to privacy policies, we are not allowed to publish the audio files. For testi
 
 ### Running without docker
 1. install mongoDB on your machine and load dataset to the database
-    
     --> for further information check: *backend/dataset/store_to_database.ipynb*
 2. use a server to host the audio files:
-
-    --> e.g. using apache web server:    
-    - on mac: `docker run -dit --name audio_server -p 8080:80 -v "path_to_your_files":/usr/local/apache2/htdocs/ httpd:2.4`
-    
-    - on windows: `docker run -dit --name audio_server -p 8080:80 -v C:/WindowsPath:/usr/local/apache2/htdocs  httpd:2.4`
 3. install dependencies with `npm install` and `pip install requirements.txt`
 4. in backend/src/config.py set the ip adress of *ip_audio_server* to the ip adress of your local machine
 5. in *frontend/src/components/NavBar/utils.js*, also set the ip adress of your local machine
