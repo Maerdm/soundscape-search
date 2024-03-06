@@ -23,7 +23,7 @@ You can find inforamtion about the ranges of each item and general information a
 2. in backend/src/config.py set the ip adress of ip_audio_server to the ip adress of your local machine
 3. in *frontend/src/ip_config.js*, also set the ip adress of your local machine
 5. in the `docker-compose.yml` file, set the volumes to the path of your audiofiles: `path_to_audio_files:/app/recordings`
-4. run following command: `docker-compose build`, after that run: `docker-compose -p soundscape-search up`
+4. run following command: `docker-compose build`, after that run: `docker-compose -p soundscape-search up` (localhost:3000)
 
 ### Running without docker
 1. install mongoDB on your machine and load dataset to the database
