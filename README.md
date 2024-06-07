@@ -14,6 +14,8 @@ __Additional information:__ Activity Location, FGsource (description of the most
 
 You can find inforamtion about the ranges of each item and general information about the dataset in *dataset/store_to_database.ipynb*. Due to privacy policies, we are not allowed to publish the audio files. For testing purposes, we included a tiny dataset consiting of 20 audiofiles (check the dataset folder). You can find the entire dataset (without audio files) here: https://doi.org/10.5281/zenodo.7858848
 
+For a detailed explanation of the web application, you can check out the paper [Advanced Soundscape Search: A Web Application for Interactive Exploration of ISO 12913 Datasets](https://www.researchgate.net/publication/380297332_Advanced_Soundscape_Search_A_Web_Application_for_Interactive_Exploration_of_ISO_12913_Datasets)
+
 ![editor](https://github.com/Maerdm/soundscape-search/assets/43093891/3fd31bf0-60da-4ecf-9253-940c775391ef)
 
 ### Running with docker
