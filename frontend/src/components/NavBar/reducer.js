@@ -40,7 +40,7 @@ const initialPlaylistType = true;
 const playlistType = (state = initialPlaylistType, action) => {
   switch (action.type) {
     case 'UPDATE_PLAYLIST_TYPE':
-      return action.payload; // Return the new value directly
+      return action.payload;
     default:
       return state;
   }
@@ -51,10 +51,21 @@ const initialbuttonPressed = [''];
 const buttonPressed = (state = initialbuttonPressed, action) => {
   switch (action.type) {
     case 'UPDATE_BUTTON_PRESSED':
-      return action.payload; // Return the new value directly
+      return action.payload;
 
     default:
       return state;
   }
 };
 export {buttonPressed}
+
+const initialGraphView = false;
+const isGraphVisualizationView = (state = initialGraphView, action) => {
+  switch (action.type) {
+    case 'TOGGLE_GRAPH_VIEW':
+      return !state;  
+    default:
+      return state;
+  }
+};
+export {isGraphVisualizationView};

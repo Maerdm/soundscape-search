@@ -11,8 +11,8 @@ const api_setDatabase = axios.create({baseURL: `${baseurl}setDatabase`})
 
 function SelectDataset() {
 
-  const [dataset, setDataset] = useState('dataset_final');
-  const [allDatasets, setAllDatasets] = useState(['dataset_final']);
+  const [dataset, setDataset] = useState('dataset_demo');
+  const [allDatasets, setAllDatasets] = useState(['dataset_demo']);
 
   const handleChange = (event) => {
     setDataset(event.target.value);

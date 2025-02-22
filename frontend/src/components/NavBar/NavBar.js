@@ -65,6 +65,7 @@ function NavBar() {
           <NavBarButton buttonText={'Filter by radar chart'} fontColor={'black'} backGroundColor={'rgb(34, 120, 207)'} borderColor={'rgb(34, 120, 207)'} func={"radarRequest"}/>
           <NavBarButton buttonText={'Filter by ISO slider'} fontColor={'black'} backGroundColor={'rgb(34, 120, 207)'} borderColor={'rgb(34, 120, 207)'} func={"isoRequest"}/>
           <NavBarButton buttonText={'Filter by single items'} fontColor={'black'} backGroundColor={'rgb(34, 120, 207)'} borderColor={'rgb(34, 120, 207)'} func={"sliderRequest"}/>
+          <NavBarButton buttonText={'Graph Visualization'} fontColor={'black'} backGroundColor={'rgb(203, 77, 136)'} borderColor={'rgb(203, 77, 136)'} func={"featureGraphVisualization"}/>
           <NavBarButton buttonText={'List ' + String(playlistName)} fontColor={'black'} backGroundColor={'rgb(129, 153, 129)'} borderColor={'rgb(129, 153, 129)'} func={"storedPlaylist"}/>
           <NavBarButton buttonText={'Download pinned soundscapes'} fontColor={'black'} backGroundColor={'rgb(253, 173, 80)'} borderColor={'rgb(253, 173, 80)'} func={"exportToFile"}/>
           <NavBarButton buttonText={'Save pinned soundscapes'} fontColor={'black'} backGroundColor={'rgb(253, 173, 80)'} borderColor={'rgb(253, 173, 80)'} func={"save"}/>

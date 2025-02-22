@@ -43,3 +43,10 @@ export const updatebuttonPressed = (value) => {
     payload: value,
   };
 };
+
+export const toggleGraphView = (value) => {
+  return {
+    type: 'TOGGLE_GRAPH_VIEW',
+    payload: value,
+  };
+};

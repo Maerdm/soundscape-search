@@ -37,7 +37,7 @@ set the database and collection. Needs to match with the name of your mongoDB da
 """
 
 db = client['soundscape_search']
-collection = db['dataset_final']
+collection = db['dataset_demo']
 find_source = collection.create_index([('FGsource', pymongo.ASCENDING)])
 
 """

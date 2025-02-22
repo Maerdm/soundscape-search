@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {updateSoundscapePlaylist, updateNumSoundscapeTabs, updatePlaylistType, resetReducer,  updatebuttonPressed} from './actions';
+import {updateSoundscapePlaylist, updateNumSoundscapeTabs, updatePlaylistType, resetReducer,  updatebuttonPressed, toggleGraphView} from './actions';
 import {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import {baseurl} from '../../ip_config.js'
@@ -43,6 +43,7 @@ function NavBarButton({ buttonText="default", fontColor="black", backGroundColor
   var radarValues = useSelector((state) => state.radarValues);
   var isoRanges = useSelector((state) => state.isoRanges);
   var sliderRangeItems = useSelector((state) => state.sliderRangeItems);
+  var currentSoundscape = useSelector((state) => state.currentSoundcape);
   const playlist_Type = useSelector((state) => state.playlistType);
 
   const [soundscapes, updateSoundscapes] = useState(0);
@@ -50,10 +51,16 @@ function NavBarButton({ buttonText="default", fontColor="black", backGroundColor
 
   const handleClick = (func) => {
 
+    // toggle Graph View
+    if(func === "featureGraphVisualization"){
+      dispatch(toggleGraphView()); // toggle graph View in frontend
+      console.log(currentSoundscape)
+    }
+
     // Save Playlist
     if(func === "save"){
 
-      if(playlistStored.soundscapes.length===0){
+      if(playlistStored.soundscapes.length === 0){
         window.alert('Playlist Empty!');
         return;
       };

@@ -29,7 +29,7 @@ For a detailed explanation of the web application, you can check out the paper [
 
 ### Running without docker
 1. install mongoDB on your machine and load dataset to the database
-    --> for further information check: *backend/dataset/store_to_database.ipynb*
+    --> for further information check: *dataset/store_to_database.ipynb*
 2. use a server to host the audio files:
 3. install dependencies with `npm install` and `pip install requirements.txt`
 4. in backend/src/config.py set the ip adress of *ip_audio_server* to the ip adress of your local machine
