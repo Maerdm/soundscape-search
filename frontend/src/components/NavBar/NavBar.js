@@ -4,7 +4,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import SearchIcon from '@mui/icons-material/Search';
-
 import {NavBarButton} from './Button';
 import {UploadButton} from './ButtonUpload';
 import {SelectDataset} from './SelectDataset';
@@ -37,12 +36,11 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 function NavBar() {
-
   const navbarRef = useRef(null);
   var playlistType = useSelector((state) => state.playlistType);
+  const isGraphVisualizationView = useSelector((state) => state.isGraphVisualizationView);
   const [playlistName, setPlaylistName] = useState('Stored Items');
-
-
+  
   useEffect(() => {
     if (playlistType) {
       setPlaylistName('pinned soundscapes')
@@ -51,26 +49,86 @@ function NavBar() {
       setPlaylistName('Search Results')
     }
   }, [playlistType])
-
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar ref={navbarRef} position="static" sx={{ backgroundColor: 'rgb(100, 100, 100)', minHeight:'auto'}}>
         <Toolbar variant="dense">
-          <Search sx={{ mr: 2, marginLeft: 'auto' }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <TextSearch/>
-          </Search>
-          <NavBarButton buttonText={'Filter by radar chart'} fontColor={'black'} backGroundColor={'rgb(34, 120, 207)'} borderColor={'rgb(34, 120, 207)'} func={"radarRequest"}/>
-          <NavBarButton buttonText={'Filter by ISO slider'} fontColor={'black'} backGroundColor={'rgb(34, 120, 207)'} borderColor={'rgb(34, 120, 207)'} func={"isoRequest"}/>
-          <NavBarButton buttonText={'Filter by single items'} fontColor={'black'} backGroundColor={'rgb(34, 120, 207)'} borderColor={'rgb(34, 120, 207)'} func={"sliderRequest"}/>
-          <NavBarButton buttonText={'Graph Visualization'} fontColor={'black'} backGroundColor={'rgb(203, 77, 136)'} borderColor={'rgb(203, 77, 136)'} func={"featureGraphVisualization"}/>
-          <NavBarButton buttonText={'List ' + String(playlistName)} fontColor={'black'} backGroundColor={'rgb(129, 153, 129)'} borderColor={'rgb(129, 153, 129)'} func={"storedPlaylist"}/>
-          <NavBarButton buttonText={'Download pinned soundscapes'} fontColor={'black'} backGroundColor={'rgb(253, 173, 80)'} borderColor={'rgb(253, 173, 80)'} func={"exportToFile"}/>
-          <NavBarButton buttonText={'Save pinned soundscapes'} fontColor={'black'} backGroundColor={'rgb(253, 173, 80)'} borderColor={'rgb(253, 173, 80)'} func={"save"}/>
-          <UploadButton buttonText={'Load pinned soundscapes'} fontColor={'black'} backGroundColor={'rgb(253, 173, 80)'} borderColor={'rgb(253, 173, 80)'}/>
-          <SelectDataset/>
+          {/* Only show other elements when not in graph visualization view */}
+          {!isGraphVisualizationView && (
+            <>
+              <Search sx={{ mr: 2, marginLeft: 'auto' }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <TextSearch/>
+              </Search>
+              <NavBarButton 
+                buttonText={'Filter by radar chart'} 
+                fontColor={'black'} 
+                backGroundColor={'rgb(34, 120, 207)'} 
+                borderColor={'rgb(34, 120, 207)'} 
+                func={"radarRequest"}
+              />
+              <NavBarButton 
+                buttonText={'Filter by ISO slider'} 
+                fontColor={'black'} 
+                backGroundColor={'rgb(34, 120, 207)'} 
+                borderColor={'rgb(34, 120, 207)'} 
+                func={"isoRequest"}
+              />
+              <NavBarButton 
+                buttonText={'Filter by single items'} 
+                fontColor={'black'} 
+                backGroundColor={'rgb(34, 120, 207)'} 
+                borderColor={'rgb(34, 120, 207)'} 
+                func={"sliderRequest"}
+              />
+            </>
+          )}
+          
+          {/* Always show this button but with different text based on state */}
+          <NavBarButton 
+            buttonText={isGraphVisualizationView ? 'Back' : 'Graph Visualization'} 
+            fontColor={'black'} 
+            backGroundColor={'rgb(203, 77, 136)'} 
+            borderColor={'rgb(203, 77, 136)'} 
+            func={"featureGraphVisualization"}
+          />
+          
+          {/* Only show other elements when not in graph visualization view */}
+          {!isGraphVisualizationView && (
+            <>
+              <NavBarButton 
+                buttonText={'List ' + String(playlistName)} 
+                fontColor={'black'} 
+                backGroundColor={'rgb(129, 153, 129)'} 
+                borderColor={'rgb(129, 153, 129)'} 
+                func={"storedPlaylist"}
+              />
+              <NavBarButton 
+                buttonText={'Download pinned soundscapes'} 
+                fontColor={'black'} 
+                backGroundColor={'rgb(253, 173, 80)'} 
+                borderColor={'rgb(253, 173, 80)'} 
+                func={"exportToFile"}
+              />
+              <NavBarButton 
+                buttonText={'Save pinned soundscapes'} 
+                fontColor={'black'} 
+                backGroundColor={'rgb(253, 173, 80)'} 
+                borderColor={'rgb(253, 173, 80)'} 
+                func={"save"}
+              />
+              <UploadButton 
+                buttonText={'Load pinned soundscapes'} 
+                fontColor={'black'} 
+                backGroundColor={'rgb(253, 173, 80)'} 
+                borderColor={'rgb(253, 173, 80)'}
+              />
+              <SelectDataset/>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

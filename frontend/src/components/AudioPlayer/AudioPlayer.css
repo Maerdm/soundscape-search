@@ -273,3 +273,16 @@
 .rhap_button-clear:focus:not(:focus-visible) {
   outline: 0;
 }
+
+.audioPlayerContainer .audioPlayer .rhap_container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  width: 100%;
+  height: 100%;
+  padding: 10px 15px;
+  background-color: #fff;
+  box-shadow: none; /* Remove the box-shadow */
+  border: none; /* Explicitly remove any borders */
+}

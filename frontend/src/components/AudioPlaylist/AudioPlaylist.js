@@ -231,6 +231,18 @@ function AudioPlaylist(){
             setPlaylistName("Text search:")
         }
     }, [buttonPressed]);
+
+    useEffect(() => {
+        if (current && playlist) {
+          const currentIndex = Object.entries(playlist).findIndex(
+            ([_, song]) => song && current && song.file_name === current.file_name
+          );
+          
+          if (currentIndex !== -1) {
+            setClickedIndex(currentIndex);
+          }
+        }
+      }, [current, playlist]);
     
     
     if(playlistType){
@@ -251,7 +263,8 @@ function AudioPlaylist(){
                 {
                 Object.entries(playlist).map(([index, song]) => (
                 <div
-                    className={`songs${parseInt(index) === clickedIndex ? " clicked" : ""}`}
+                    className={`songs${parseInt(index) === clickedIndex || 
+                      (song && current && song.file_name === current.file_name) ? " clicked" : ""}`}
                     key={index}
                     onClick={(event) => {
                       dispatch(updateSoundscape(song));
@@ -300,7 +313,8 @@ function AudioPlaylist(){
                     {
                     Object.entries(playlist).map(([index, song]) => (
                         <div
-                            className={`songs${parseInt(index) === clickedIndex ? " clicked" : ""}`}
+                            className={`songs${parseInt(index) === clickedIndex || 
+                              (song && current && song.file_name === current.file_name) ? " clicked" : ""}`}
                             key={index}
                             onClick={(event) => {
                               dispatch(updateSoundscape(song));
