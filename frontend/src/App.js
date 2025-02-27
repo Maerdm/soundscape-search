@@ -10,28 +10,45 @@ import { AudioPlayer } from './components/AudioPlayer/AudioPlayer';
 import NavBar from './components/NavBar/NavBar';
 import { SliderSoundscapeComponent } from './components/SliderRanges/SliderSoundscapeComponent';
 import { InformationComponent } from './components/Informations/InformationComponent';
+import GraphVisualization from './components/GraphVisualization/GraphVisualization'; // Import the new component
 
 const AppContent = () => {
   const isGraphVisualizationView = useSelector((state) => state.isGraphVisualizationView);
-
+  
   return (
     <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column' }}>
       <div className="App">
         <div className="RadarChart">
           <NavBar />
-          {/* Keep these mounted but control visibility */}
+          
+          {/* Regular components shown when graph visualization is off */}
           <div style={{ display: isGraphVisualizationView ? 'none' : 'block' }}>
             <AudioPlaylist />
             <AudioPlaylistTabs />
           </div>
+          
           <AudioPlayer />
-          {/* Other components */}
-          <div style={{ display: isGraphVisualizationView ? 'none' : 'block' }}>
-            <RadarChart />
-            <EventPleasantComponent />
-            <SliderSoundscapeComponent />
-            <InformationComponent />
-          </div>
+          
+          {isGraphVisualizationView ? (
+            <div style={{
+              position: 'absolute',
+              top: '48px', // Reduced from 60px to match NavBar height exactly
+              left: 0,
+              right: 0,
+              bottom: '60px',
+              overflow: 'hidden',
+              margin: 0, // Explicitly set margin to 0
+            }}>
+              <GraphVisualization />
+            </div>
+          ) : (
+            <div>
+              <RadarChart />
+              <EventPleasantComponent />
+              <SliderSoundscapeComponent />
+              <InformationComponent />
+            </div>
+          )}
         </div>
       </div>
     </div>

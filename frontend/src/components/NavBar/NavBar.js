@@ -87,16 +87,14 @@ function NavBar() {
             </>
           )}
           
-          {/* Always show this button but with different text based on state */}
           <NavBarButton 
-            buttonText={isGraphVisualizationView ? 'Back' : 'Graph Visualization'} 
+            buttonText={isGraphVisualizationView ? '<< Back' : 'Graph Visualization'} 
             fontColor={'black'} 
             backGroundColor={'rgb(203, 77, 136)'} 
             borderColor={'rgb(203, 77, 136)'} 
             func={"featureGraphVisualization"}
           />
           
-          {/* Only show other elements when not in graph visualization view */}
           {!isGraphVisualizationView && (
             <>
               <NavBarButton 

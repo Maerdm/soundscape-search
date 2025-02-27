@@ -12,7 +12,7 @@ function AudioPlayer() {
   const dispatch = useDispatch();
   
   const containerStyle = {
-    height: 'calc(100% - 88vh)',
+    height: 'calc(100% - 86vh)',
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
