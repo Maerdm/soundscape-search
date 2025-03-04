@@ -1,29 +1,77 @@
 // GraphVisualization.js
 import React, { useEffect, useRef, useCallback } from 'react';
+import { useSelector} from 'react-redux';
+
 import * as d3 from 'd3';
 
-const GraphVisualization = () => {
+const GraphVisualization = () => { // Default to 15 seconds if not provided
+  
+  var current = useSelector((state) => state.currentSoundcape);
+  var audioLengthSeconds = current.duration_s
+  
   const containerRef = useRef(null);
   const svgRefs = useRef([]);
   const graphData = useRef([]);
+
+  // Function to format time values (MM:SS format when over 60 seconds)
+  const formatTime = (seconds) => {
+    if (seconds < 60) {
+      return Math.round(seconds);
+    } else {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      // Only show seconds if they're not zero
+      return remainingSeconds === 0 
+        ? `${minutes}:00`
+        : `${minutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+    }
+  };
+
+  // Generate X-axis ticks based on audio length - always 15 ticks
+  const generateXAxisTicks = (audioLength) => {
+    
+    var tickCount = 15;
+    if (audioLength < 15) {
+      tickCount = Math.ceil(audioLength)
+    }
+
+    const interval = audioLength / (tickCount - 1); // Distribute evenly
+
+    const ticks = [];
+    for (let i = 0; i < tickCount; i++) {
+      const tickValue = i * interval;
+      ticks.push(tickValue);
+    }
+    
+    // Ensure the final tick is the audio length
+    if (ticks[ticks.length - 1] !== audioLength) {
+      ticks[ticks.length - 1] = audioLength;
+    }
+    
+    return ticks;
+  };
 
   // Initialize demo data for the graphs
   const initializeGraphData = useCallback(() => {
     // Create 5 different graph data sets
     return Array(5).fill().map((_, index) => {
-      // Generate random points with a slight wave pattern for each graph
-      return Array(100).fill().map((_, i) => {
-        const x = i;
+      // Generate data points distributed across the entire audio length
+      const pointCount = 100; // We'll keep 100 data points for smooth curves
+      return Array(pointCount).fill().map((_, i) => {
+        // Map i (0-99) to the appropriate time in seconds
+        const x = (i / (pointCount - 1)) * audioLengthSeconds;
         const frequency = 0.05 + (index * 0.01);
         const amplitude = 50 + (index * 10);
         const phase = index * Math.PI / 5;
-        const y = Math.sin(x * frequency + phase) * amplitude + 
+        // Use normalized x value for calculating the wave pattern
+        const normalizedX = i;
+        const y = Math.sin(normalizedX * frequency + phase) * amplitude + 
                  (Math.random() * 20 - 10) + 
-                 (index === 2 ? Math.cos(x * 0.02) * 30 : 0); // Add extra pattern to middle graph
+                 (index === 2 ? Math.cos(normalizedX * 0.02) * 30 : 0);
         return { x, y };
       });
     });
-  }, []);
+  }, [audioLengthSeconds]);
 
   const createGraphs = useCallback(() => {
     if (!containerRef.current) return;
@@ -41,7 +89,7 @@ const GraphVisualization = () => {
     }
 
     // Get container dimensions
-    const margin = { top: 20, right: 86, bottom: 30, left: 71 }; // Increased left and right margins
+    const margin = { top: 20, right: 86, bottom: 40, left: 71 }; // Sufficient margin for horizontal labels
     const containerWidth = containerRef.current.clientWidth;
     const graphHeight = 210; // Fixed height for each graph
     
@@ -53,14 +101,12 @@ const GraphVisualization = () => {
     graphsContainer.style.overflowY = 'auto';
     graphsContainer.style.height = '100%';
     graphsContainer.style.padding = '10px';
-    graphsContainer.style.paddingBottom = '80px'; // Extra padding at bottom to ensure last graph is fully visible
+    graphsContainer.style.paddingBottom = '80px'; // Extra padding at bottom
     graphsContainer.style.boxSizing = 'border-box';
     containerRef.current.appendChild(graphsContainer);
 
-    // Create color scale for the graphs
-    const colorScale = d3.scaleOrdinal()
-      .domain([0, 1, 2, 3, 4])
-      .range(['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3']);
+    // Get X-axis ticks based on audio length
+    const xAxisTicks = generateXAxisTicks(audioLengthSeconds);
 
     // Create 5 graphs
     for (let i = 0; i < 5; i++) {
@@ -97,9 +143,9 @@ const GraphVisualization = () => {
         .attr('rx', 5)
         .attr('ry', 5);
 
-      // X scale
+      // X scale - use the actual time values in seconds
       const x = d3.scaleLinear()
-        .domain([0, 99]) // 100 data points
+        .domain([0, audioLengthSeconds])
         .range([0, width]);
       
       // Find min and max Y values for this dataset
@@ -110,6 +156,29 @@ const GraphVisualization = () => {
       const y = d3.scaleLinear()
         .domain([yExtent[0] - padding, yExtent[1] + padding])
         .range([height, 0]);
+
+      // Add X axis with custom ticks and time formatting
+      g.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x)
+          .tickValues(xAxisTicks)
+          .tickFormat(d => formatTime(d))
+        )
+        .call(g => g.select('.domain').attr('stroke', '#adb5bd'))
+        .call(g => g.selectAll('.tick line').attr('stroke', '#adb5bd'))
+        .call(g => g.selectAll('.tick text')
+          .attr('fill', '#495057')
+          .style('text-anchor', 'middle') // Center text for horizontal alignment
+        );
+
+      // Add X-axis label - determine label based on audio length
+      const xAxisLabel = audioLengthSeconds >= 60 ? 'Time (min:sec)' : 'Time (seconds)';
+      g.append('text')
+        .attr('transform', `translate(${width / 2}, ${height + 35})`) // Increased vertical offset
+        .style('text-anchor', 'middle')
+        .style('font-size', '12px')
+        .style('fill', '#495057')
+        .text(xAxisLabel);
 
       // Add Y axis
       g.append('g')
@@ -136,38 +205,36 @@ const GraphVisualization = () => {
       g.append('path')
         .datum(graphData.current[i])
         .attr('fill', 'none')
-        .attr('stroke', colorScale(i))
-        .attr('stroke-width', 2.5)
+        .attr('stroke', 'grey')
+        .attr('stroke-width', 1)
         .attr('d', line);
       
-    
-    // graph titles
-    const graphTitles = ["Amplitude", "Roughness", "Sharpness", "Toonality", "Test"];
-    const graphTitle = document.createElement('div');
-    graphTitle.textContent = graphTitles[i];
-    graphTitle.style.fontSize = '15px';
-    graphTitle.style.padding = '1px 12px';
-    graphTitle.style.backgroundColor = 'white';
-    graphTitle.style.borderTopLeftRadius = '8px';
-    graphTitle.style.borderTopRightRadius = '8px';
-
-    graphTitle.style.textAlign = 'left';
-    graphTitle.style.width = 'fit-content';
-    graphContainer.insertBefore(graphTitle, graphContainer.firstChild);
-      
-    // Add Y-axis label
-    const yAxisLabels = ["dB", "Roughness Index", "Sharpness Level", "Frequency (Hz)", "Intensity"];
-    g.append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('y', -margin.left + 12)
-    .attr('x', -height / 2)
-    .attr('dy', '1em')
-    .style('text-anchor', 'middle')
-    .style('font-size', '12px')
-    .style('fill', '#495057')
-    .text(yAxisLabels[i]); 
+      // Graph titles
+      const graphTitles = ["Amplitude", "Roughness", "Sharpness", "Toonality", "Test"];
+      const graphTitle = document.createElement('div');
+      graphTitle.textContent = graphTitles[i];
+      graphTitle.style.fontSize = '15px';
+      graphTitle.style.padding = '1px 12px';
+      graphTitle.style.backgroundColor = 'white';
+      graphTitle.style.borderTopLeftRadius = '8px';
+      graphTitle.style.borderTopRightRadius = '8px';
+      graphTitle.style.textAlign = 'left';
+      graphTitle.style.width = 'fit-content';
+      graphContainer.insertBefore(graphTitle, graphContainer.firstChild);
+        
+      // Add Y-axis label
+      const yAxisLabels = ["dB", "Roughness Index", "Sharpness Level", "Frequency (Hz)", "Intensity"];
+      g.append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', -margin.left + 12)
+        .attr('x', -height / 2)
+        .attr('dy', '1em')
+        .style('text-anchor', 'middle')
+        .style('font-size', '12px')
+        .style('fill', '#495057')
+        .text(yAxisLabels[i]); 
     }
-  }, [initializeGraphData]);
+  }, [initializeGraphData, audioLengthSeconds]);
 
   useEffect(() => {
     createGraphs();
@@ -191,7 +258,7 @@ const GraphVisualization = () => {
         display: 'flex', 
         flexDirection: 'column',
         overflow: 'hidden',
-        backgroundColor: 'rgb(223, 223, 223)', // Add this line with your desired color
+        backgroundColor: 'rgb(223, 223, 223)',
       }}
     />
   );

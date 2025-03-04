@@ -86,7 +86,7 @@ function AudioPlayer() {
     <div className="audioPlayerContainer" style={containerStyle}>
       {isGraphVisualizationView && current.file_name && (
         <div className="audioTitle" style={titleStyle}>
-          {current.file_name + " - " + current.FGsource || "Now Playing"}
+          {current.file_name + " - " + current.FGsource}
         </div>
       )}
       <div className="audioPlayer">
