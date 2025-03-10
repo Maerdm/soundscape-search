@@ -124,9 +124,14 @@ function NavBar() {
                 backGroundColor={'rgb(253, 173, 80)'} 
                 borderColor={'rgb(253, 173, 80)'}
               />
-              <SelectDataset/>
             </>
           )}
+          
+          <div style={{ 
+            display: isGraphVisualizationView ? 'none' : 'block',
+          }}>
+            <SelectDataset/>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

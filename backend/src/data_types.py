@@ -1,11 +1,16 @@
 from pydantic import BaseModel
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Optional
 
 class DataSet(BaseModel):
     dataset: str
 
 class Search(BaseModel):
     searchSoundscape: str
+
+class TemporalAudioFeatures(BaseModel):
+    loudness: List[float]
+    sharpness: List[float]
+    roughness: List[float]
 
 class Soundscape_List(BaseModel):
     file_name: str
@@ -42,6 +47,9 @@ class Soundscape_List(BaseModel):
     SavgArith_default: float
     R_default: float 
     T_default: float
+
+    temporal_audio_features: Optional[TemporalAudioFeatures] = None
+
 
 class Radar_Attributes(BaseModel):
     pleasant: int
@@ -90,4 +98,3 @@ class ResponseModel(BaseModel):
 
 class NumberOfTabs(BaseModel):
     num_soundscapes_tabs: int
-

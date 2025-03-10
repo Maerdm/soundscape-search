@@ -21,7 +21,6 @@ const AppContent = () => {
         <div className="RadarChart">
           <NavBar />
           
-          {/* Regular components shown when graph visualization is off */}
           <div style={{ display: isGraphVisualizationView ? 'none' : 'block' }}>
             <AudioPlaylist />
             <AudioPlaylistTabs />
@@ -29,24 +28,24 @@ const AppContent = () => {
           
           <AudioPlayer />
           
-          {isGraphVisualizationView ? (
+          <div style={{ display: isGraphVisualizationView ? 'none' : 'block' }}>
+            <RadarChart />
+            <EventPleasantComponent />
+            <SliderSoundscapeComponent />
+            <InformationComponent />
+          </div>
+          
+          {isGraphVisualizationView && (
             <div style={{
               position: 'absolute',
-              top: '48px', // Reduced from 60px to match NavBar height exactly
+              top: '48px',
               left: 0,
               right: 0,
               bottom: '60px',
               overflow: 'hidden',
-              margin: 0, // Explicitly set margin to 0
+              margin: 0,
             }}>
               <GraphVisualization />
-            </div>
-          ) : (
-            <div>
-              <RadarChart />
-              <EventPleasantComponent />
-              <SliderSoundscapeComponent />
-              <InformationComponent />
             </div>
           )}
         </div>
