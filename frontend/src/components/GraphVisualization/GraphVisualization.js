@@ -14,7 +14,9 @@ const GraphVisualization = () => {
   const [minMaxValues, setMinMaxValues] = useState({
     loudness: { min: 0, max: 0 },
     sharpness: { min: 0, max: 0 },
-    roughness: { min: 0, max: 0 }
+    roughness: { min: 0, max: 0 },
+    prominence_ratio: { min: 0, max: 0 },
+    tone_to_noise_ratio: { min: 0, max: 0 }
   });
 
   // Calculate the min/max values for all features
@@ -39,6 +41,7 @@ const GraphVisualization = () => {
         index = 0;
       }
 
+      // Get 4 nearby soundscapes (2 before, 2 after if possible)
       const nearby = getNearbySoundscapes(index, Object.keys(soundscape_Playlist).length);
       const allIndices = [...nearby, index];
       
@@ -54,6 +57,10 @@ const GraphVisualization = () => {
       let maxSharpness = Math.max(...firstSoundscape.sharpness);
       let minRoughness = Math.min(...firstSoundscape.roughness);
       let maxRoughness = Math.max(...firstSoundscape.roughness);
+      let minProminenceRatio = Math.min(...(firstSoundscape.prominence_ratio || [0]));
+      let maxProminenceRatio = Math.max(...(firstSoundscape.prominence_ratio || [0]));
+      let minToneToNoiseRatio = Math.min(...(firstSoundscape.tone_to_noise_ratio || [0]));
+      let maxToneToNoiseRatio = Math.max(...(firstSoundscape.tone_to_noise_ratio || [0]));
       
       for (let i = 0; i < allIndices.length; i++) {
         if (!soundscape_Playlist[allIndices[i]]?.temporal_audio_features) continue;
@@ -68,45 +75,113 @@ const GraphVisualization = () => {
         
         minRoughness = Math.min(minRoughness, Math.min(...features.roughness));
         maxRoughness = Math.max(maxRoughness, Math.max(...features.roughness));
+        
+        // Handle the new metrics - check if they exist
+        if (features.prominence_ratio) {
+          minProminenceRatio = Math.min(minProminenceRatio, Math.min(...features.prominence_ratio));
+          maxProminenceRatio = Math.max(maxProminenceRatio, Math.max(...features.prominence_ratio));
+        }
+        
+        if (features.tone_to_noise_ratio) {
+          minToneToNoiseRatio = Math.min(minToneToNoiseRatio, Math.min(...features.tone_to_noise_ratio));
+          maxToneToNoiseRatio = Math.max(maxToneToNoiseRatio, Math.max(...features.tone_to_noise_ratio));
+        }
       }
       
+      // Add a small buffer to max values to prevent values from touching the top of the graph
+      const bufferMultiplier = 1.05; // 5% buffer
+      
+      // Simple, consistent scaling for all metrics
+      // Find the highest value and round up slightly
+      // For decimal values, round to next decimal place
+      function roundToNextNice(value) {
+        if (value === 0) return 0; // Handle zero case
+        
+        // If value is below 0.1, use 2 decimal places
+        if (value < 0.1) {
+          return Math.ceil(value * 100) / 100;
+        }
+        // If value is below 1, use 1 decimal place
+        else if (value < 1) {
+          return Math.ceil(value * 10) / 10;
+        }
+        // For larger values, round to next integer
+        else {
+          return Math.ceil(value);
+        }
+      }
+      
+      // Apply same simple scaling logic to all metrics
       const newMinMaxValues = {
-        loudness: { min: minLoudness, max: Math.ceil(maxLoudness) },
-        sharpness: { min: minSharpness, max: Math.ceil(maxSharpness) },
-        roughness: { min: minRoughness, max: Math.ceil(maxRoughness) }
+        loudness: { min: minLoudness, max: roundToNextNice(maxLoudness * bufferMultiplier) },
+        sharpness: { min: minSharpness, max: roundToNextNice(maxSharpness * bufferMultiplier) },
+        roughness: { min: minRoughness, max: roundToNextNice(maxRoughness * bufferMultiplier) },
+        prominence_ratio: { min: minProminenceRatio, max: roundToNextNice(maxProminenceRatio * bufferMultiplier) },
+        tone_to_noise_ratio: { min: minToneToNoiseRatio, max: roundToNextNice(maxToneToNoiseRatio * bufferMultiplier) }
       };
+      
+      console.log(`Roughness: original max: ${maxRoughness}, scaled max: ${newMinMaxValues.roughness.max}`);
 
       setMinMaxValues(newMinMaxValues);
+
     };
 
     calculateMinMaxValues();
   }, [current, soundscape_Playlist]);
 
+  // Modified to get exactly 4 nearby soundscapes (total of 5 including current)
   function getNearbySoundscapes(currentIndex, playlistLength) {
     let result = [];
     
-    if (currentIndex < 4) {
-      for (let i = 0; i <= 8; i++) {
-        if (i !== currentIndex && i < playlistLength) {
-          result.push(i);
-        }
+    // Aim to get 2 before and 2 after if possible
+    // If not enough before, get more after and vice versa
+    let before = 2;
+    let after = 2;
+    
+    // Adjust if we're near the start
+    if (currentIndex < 2) {
+      before = currentIndex;
+      after = 4 - before;
+    }
+    
+    // Adjust if we're near the end
+    if (currentIndex >= playlistLength - 2) {
+      after = playlistLength - currentIndex - 1;
+      before = 4 - after;
+    }
+    
+    // Get soundscapes before current
+    for (let i = 1; i <= before; i++) {
+      const idx = currentIndex - i;
+      if (idx >= 0) {
+        result.push(idx);
       }
     }
-    else if (currentIndex >= playlistLength - 4) {
-      for (let i = playlistLength - 9; i < playlistLength; i++) {
-        if (i !== currentIndex && i >= 0) {
-          result.push(i);
-        }
+    
+    // Get soundscapes after current
+    for (let i = 1; i <= after; i++) {
+      const idx = currentIndex + i;
+      if (idx < playlistLength) {
+        result.push(idx);
       }
     }
-    else {
-      for (let i = currentIndex - 4; i <= currentIndex + 4; i++) {
-        if (i !== currentIndex && i >= 0 && i < playlistLength) {
-          result.push(i);
-        }
+    
+    // If we still don't have 4 (might happen in small playlists)
+    // Add more from either side if possible
+    while (result.length < 4) {
+      if (currentIndex - (before + 1) >= 0) {
+        result.push(currentIndex - (before + 1));
+        before++;
+      } else if (currentIndex + (after + 1) < playlistLength) {
+        result.push(currentIndex + (after + 1));
+        after++;
+      } else {
+        // We've exhausted the playlist
+        break;
       }
-    }    
-    return result.slice(0, 8);
+    }
+    
+    return result;
   }
 
   // Function to format time values (MM:SS format when over 60 seconds)
@@ -150,20 +225,19 @@ const GraphVisualization = () => {
   const prepareGraphData = useCallback(() => {
     if (!current || !current.temporal_audio_features) {
       setShowAlert(true);
-      return [[], [], []];
+      return [[], [], [], [], []];
     } else {
       setShowAlert(false);
     }
 
-    const { loudness, sharpness, roughness } = current.temporal_audio_features;
+    const { loudness, sharpness, roughness, prominence_ratio, tone_to_noise_ratio } = current.temporal_audio_features;
     
-    // If any of the data arrays is missing, return empty arrays
+    // If any of the required data arrays is missing, return empty arrays
     if (!loudness || !sharpness || !roughness) {
       setShowAlert(true);
-      return [[], [], []];
+      return [[], [], [], [], []];
     }
     
-    console.log("Data points count:", loudness.length);
     
     // Map the data points to time positions based on audio length
     // This ensures that no matter how many points we have, they span exactly from 0 to audioLengthSeconds
@@ -182,7 +256,22 @@ const GraphVisualization = () => {
       y: value
     }));
     
-    return [loudnessData, sharpnessData, roughnessData];
+    // Handle the new metrics - check if they exist
+    const prominenceRatioData = prominence_ratio 
+      ? prominence_ratio.map((value, index, array) => ({
+          x: (index / (array.length - 1)) * audioLengthSeconds,
+          y: value
+        }))
+      : [];
+    
+    const toneToNoiseRatioData = tone_to_noise_ratio 
+      ? tone_to_noise_ratio.map((value, index, array) => ({
+          x: (index / (array.length - 1)) * audioLengthSeconds,
+          y: value
+        }))
+      : [];
+    
+    return [loudnessData, sharpnessData, roughnessData, prominenceRatioData, toneToNoiseRatioData];
   }, [current, audioLengthSeconds]);
 
   const createGraphs = useCallback(() => {
@@ -218,12 +307,12 @@ const GraphVisualization = () => {
     // Get X-axis ticks based on audio length
     const xAxisTicks = generateXAxisTicks(audioLengthSeconds);
 
-    // Create 3 graphs for loudness, sharpness, and roughness
-    const graphTitles = ["Loudness", "Sharpness", "Roughness"];
-    const yAxisLabels = ["Loudness", "Sharpness Level", "Roughness Index"];
-    const featureNames = ["loudness", "sharpness", "roughness"];
+    // Create 5 graphs - added prominence_ratio and tone_to_noise_ratio
+    const graphTitles = ["Loudness", "Sharpness", "Roughness", "Prominence Ratio", "Tone to Noise Ratio"];
+    const yAxisLabels = ["Sone", "Acum", "Asper", "dB", "dB"];
+    const featureNames = ["loudness", "sharpness", "roughness", "prominence_ratio", "tone_to_noise_ratio"];
     
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       // Skip if no data available
       if (graphDataArrays[i].length === 0) continue;
       
@@ -275,7 +364,9 @@ const GraphVisualization = () => {
       // Always include zero in the domain to align y=0 with x=0
       yMin = Math.min(0, yMin);
       
-      // Use exact max value without adding extra padding
+      // Log max values for debugging
+      const dataMax = Math.max(...currentData.map(d => d.y));
+      
       // Y scale using the precalculated min/max values with zero included
       const y = d3.scaleLinear()
         .domain([yMin, yMax])
@@ -303,14 +394,23 @@ const GraphVisualization = () => {
         .style('fill', '#495057')
         .text(xAxisLabel);
 
-      // Calculate appropriate tick values to ensure nice, evenly spaced ticks that include max value
+      // Calculate appropriate tick values - consistent for all graphs
       const tickValues = calculateYAxisTicks(yMin, yMax);
 
       // Add Y axis with custom ticks
       g.append('g')
         .call(d3.axisLeft(y)
           .tickValues(tickValues)
-          .tickFormat(d => Number.isInteger(d) ? d3.format('d')(d) : d3.format('.1f')(d)))
+          .tickFormat(d => {
+            // Choose appropriate formatting based on the value
+            if (Math.abs(d) < 0.1) {
+              return d3.format('.2f')(d); // Use 2 decimal places for very small values
+            } else if (Math.abs(d) < 1) {
+              return d3.format('.1f')(d); // Use 1 decimal place for small values
+            } else {
+              return Number.isInteger(d) ? d3.format('d')(d) : d3.format('.1f')(d);
+            }
+          }))
         .call(g => g.select('.domain').attr('stroke', '#adb5bd'))
         .call(g => g.selectAll('.tick line').attr('stroke', '#adb5bd'))
         .call(g => g.selectAll('.tick text').attr('fill', '#495057'));
@@ -331,7 +431,7 @@ const GraphVisualization = () => {
         .y(d => y(d.y));
       
       // Define line colors for each graph
-      const colors = ["#000", "#000", "#000"];
+      const colors = ["#000", "#000", "#000", "#000", "#000"];
       
       g.append('path')
         .datum(currentData)

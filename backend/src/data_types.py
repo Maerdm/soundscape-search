@@ -11,6 +11,8 @@ class TemporalAudioFeatures(BaseModel):
     loudness: List[float]
     sharpness: List[float]
     roughness: List[float]
+    prominence_ratio: List[float]
+    tone_to_noise_ratio: List[float]
 
 class Soundscape_List(BaseModel):
     file_name: str
@@ -49,7 +51,6 @@ class Soundscape_List(BaseModel):
     T_default: float
 
     temporal_audio_features: Optional[TemporalAudioFeatures] = None
-
 
 class Radar_Attributes(BaseModel):
     pleasant: int

@@ -41,7 +41,7 @@ const AppContent = () => {
               top: '48px',
               left: 0,
               right: 0,
-              bottom: '60px',
+              bottom: '90px',
               overflow: 'hidden',
               margin: 0,
             }}>

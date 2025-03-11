@@ -4,6 +4,8 @@
 /dataset/AcousticFeatures_SingleValues.csv
 /dataset/FinalDataset.csv
 /dataset/02 Dataset.csv
+/dataset/test_audiofiles
+/dataset/dataset_acousticFeatures.csv
 
 # dependencies
 /frontend/node_modules
