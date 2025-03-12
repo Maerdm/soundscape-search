@@ -14,7 +14,7 @@ temp_zip_path = "../dataset/recordings/temp/playlist.zip"
 client = MongoClient('mongodb://localhost:27017/')
 
 """
-The following code is for use with docker, comment the one above
+The following code is for use with docker, comment out the one above
 build the entire app: docker-compose build
 run the app: docker-compose -p soundscape-search
 before building, change the paths to the following:
