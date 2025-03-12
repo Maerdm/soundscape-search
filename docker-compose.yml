@@ -1,32 +1,44 @@
-  version: "3"
-  services:
-    backend:
-      build:
-        context: backend/
-        dockerfile: Dockerfile
-      image: soundscape-backend
-      volumes:
-      - /path_to_recordings:/app/recordings
-      environment:
-        MongoClient: "mongodb://host.docker.internal:27017"
-        IP_AUDIO_SERVER: "http://127.0.0.1:8080/"
-      ports:
-        - 8000:8000
+version: "3"
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./dataset:/app/dataset
+      - ./dataset/audiofiles:/app/recordings
+    environment:
+      MongoClient: "mongodb://mongodb:27017"
+      IP_AUDIO_SERVER: "http://localhost:8080/"
+      PYTHONUNBUFFERED: 1
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongodb
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      REACT_APP_IPAdress: "http://localhost:8000/"
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+  
+  audioserver:
+    image: httpd:2.4
+    ports:
+      - "8080:80"
+    volumes:
+      - ./dataset/audiofiles:/usr/local/apache2/htdocs/
+  
+  mongodb:
+    image: mongo:latest
 
-    frontend:
-      build:
-        context: frontend/
-        dockerfile: Dockerfile
-      image: soundscape-frontend
-      environment:
-        REACT_APP_IPAdress: "http://127.0.0.1:8000/"
-      ports:
-        - 3000:3000
-      depends_on: ["backend"]
+    volumes:
+      - mongodb_data:/data/db
 
-    audioserver:
-      image: httpd:2.4
-      ports:
-        - "8080:80"
-      volumes:
-        - /path_to_recordings:/usr/local/apache2/htdocs/
+volumes:
+  mongodb_data:

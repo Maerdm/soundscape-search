@@ -15,7 +15,7 @@ The application allows to create complex search queries using combination of the
 - Acoustic features: LAeq, Loudness, Fluctuation Strength, Relative Approach, Sharpness, Roughness, Tonality
 - Additional information: Activity and Location (description of the most salient sound source)
 
-Acoustic Feature visualization:
+Acoustic feature visualization:
 - Loudness (ISO 532-1:2017)
 - Roughness (by Daniel and Weber)
 - Sharpness (DIN 45692)
@@ -40,11 +40,6 @@ For a detailed explanation of the web application, check out the following publi
 
 ### Running with docker
 
-1. install mongoDB on your machine and load datasets to the database
-    --> for further information check: *dataset/store_to_database.ipynb*
-2. in backend/src/config.py set the ip adress of ip_audio_server to the ip adress of your local machine
-3. in *frontend/src/ip_config.js*, also set the ip adress of your local machine
-5. in the `docker-compose.yml` file, set the volumes to the path of your audiofiles: `path_to_audio_files:/app/recordings`
-4. run following command: `docker-compose build`, after that run: `docker-compose -p soundscape-search up` (localhost:3000)
-
-
+1. in backend/src/config.py comment out code used without docker
+2. in *frontend/src/ip_config.js*, comment out local ip adress
+3. run following command: `docker-compose build`, after that run: `docker-compose -p soundscape-search up` (localhost:3000)
