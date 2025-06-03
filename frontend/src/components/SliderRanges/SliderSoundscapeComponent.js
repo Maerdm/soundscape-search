@@ -112,23 +112,23 @@ function SliderSoundscapeComponent() {
                     <div className='sliderPleasent'>
                         <SliderSoundscapeItems name={"Pleasant"} itemName={"pleasant"} numMarks={4} sliderType="items"/>
                     </div>
-                    <div className='sliderVibrant'>
-                        <SliderSoundscapeItems name={"Vibrant"} itemName={"vibrant"} numMarks={4} sliderType="items"/>
+                    <div className='sliderAnnoying'>
+                        <SliderSoundscapeItems name={"Annoying"} itemName={"annoying"} numMarks={4} sliderType="items"/>
                     </div>
                     <div className='sliderEventful'>
                         <SliderSoundscapeItems name={"Eventful"} itemName={"eventful"} numMarks={4} sliderType="items"/>
                     </div>
-                    <div className='sliderChaotic'>
-                        <SliderSoundscapeItems name={"Chaotic"} itemName={"chaotic"} numMarks={4} sliderType="items"/>
+                    <div className='sliderUneventful'>
+                        <SliderSoundscapeItems name={"Uneventful"} itemName={"uneventful"} numMarks={4} sliderType="items"/>
                     </div>
-                    <div className='sliderAnnoying'>
-                        <SliderSoundscapeItems name={"Annoying"} itemName={"annoying"} numMarks={4} sliderType="items"/>
+                    <div className='sliderVibrant'>
+                        <SliderSoundscapeItems name={"Vibrant"} itemName={"vibrant"} numMarks={4} sliderType="items"/>
                     </div>
                     <div className='sliderMonotonous'>
                         <SliderSoundscapeItems name={"Monotonous"} itemName={"monotonous"} numMarks={4} sliderType="items"/>
                     </div>
-                    <div className='sliderUneventful'>
-                        <SliderSoundscapeItems name={"Uneventful"} itemName={"uneventful"} numMarks={4} sliderType="items"/>
+                    <div className='sliderChaotic'>
+                        <SliderSoundscapeItems name={"Chaotic"} itemName={"chaotic"} numMarks={4} sliderType="items"/>
                     </div>
                     <div className='sliderCalm'>
                         <SliderSoundscapeItems name={"Calm"} itemName={"calm"} numMarks={4} sliderType="items"/>

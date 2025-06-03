@@ -20,14 +20,14 @@
 }
 
 /* SliderStyling */
-.radarContainer .slider .pleasant,
-.radarContainer .slider .vibrant,
 .radarContainer .slider .eventful,
-.radarContainer .slider .chaotic,
-.radarContainer .slider .annoying,
-.radarContainer .slider .monotonous,
+.radarContainer .slider .vibrant,
+.radarContainer .slider .pleasant,
+.radarContainer .slider .calm,
 .radarContainer .slider .uneventful,
-.radarContainer .slider .calm{ 
+.radarContainer .slider .monotonous,
+.radarContainer .slider .annoying,
+.radarContainer .slider .chaotic{ 
     position: absolute;
     appearance: none;
     cursor: pointer;
@@ -36,7 +36,7 @@
     background:  rgb(255, 255, 255, 0.0);
 }
 
-.radarContainer .slider .pleasant{ 
+.radarContainer .slider .eventful{ 
     width: 28vh;
     margin-top: -14.8vh;
     margin-left: 13.7vh; 
@@ -51,7 +51,7 @@
     transform: rotate(-45deg);
 }
  
-.radarContainer .slider .eventful{ 
+.radarContainer .slider .pleasant{ 
     height: 8px;
     width: 28vh;
     margin-top: -0.2vh;
@@ -61,7 +61,7 @@
 }
 
 
-.radarContainer .slider .chaotic{ 
+.radarContainer .slider .calm{ 
     height: 8px;
     width: 28vh;
     margin-top: 9.4vh;
@@ -70,7 +70,7 @@
 }
 
 
-.radarContainer .slider .annoying{ 
+.radarContainer .slider .uneventful{ 
     height: 8px;
     width: 28vh;
     margin-top: -0.8vh;
@@ -88,7 +88,7 @@
     transform-origin: 0% 100%;
 }
 
-.radarContainer .slider .uneventful{ 
+.radarContainer .slider .annoying{ 
     height: 8px;
     width: 28vh;
     margin-top: -0.8vh;
@@ -97,7 +97,7 @@
     transform-origin: 0% 100%;
 }
 
-.radarContainer .slider .calm{ 
+.radarContainer .slider .chaotic{ 
     height: 8px;
     width: 28vh;
     margin-top: -0.5vh;

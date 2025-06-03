@@ -28,18 +28,17 @@ For a detailed explanation of the web application, check out the following publi
 - Main branch: [A revised Web Application for Interactive Exploration and Visualization of ISO 12913 Soundscape Datasets](link)
 - DAGA branch:  [Advanced Soundscape Search: A Web Application for Interactive Exploration of ISO 12913 Datasets](https://www.researchgate.net/publication/380297332_Advanced_Soundscape_Search_A_Web_Application_for_Interactive_Exploration_of_ISO_12913_Datasets)
 
-### Installation
-
-1. install mongoDB (or any other database) on your machine and load dataset to the database
-    --> for further information check: *dataset/store_to_database.ipynb*
-2. use a server to host the audio files (e.g. apache)
-3. install dependencies with `npm install` and `pip install requirements.txt`
-4. in backend/src/config.py set the ip adress of *ip_audio_server* to the ip adress of your local machine
-5. in *frontend/src/components/NavBar/utils.js*, also set the ip adress of your local machine
-6. start backend: `uvicorn "src.backend_v1:app" --host "0.0.0.0" --reload`, start frontend: `npm start`
-
 ### Running with docker
 
 1. in backend/src/config.py comment out code used without docker
 2. in *frontend/src/ip_config.js*, comment out local ip adress
 3. run following command: `docker-compose build`, after that run: `docker-compose -p soundscape-search up` (localhost:3000)
+
+### Installation
+
+1. install mongoDB (or any other database) on your machine and load dataset to the database
+2. use a server to host the audio files (e.g. apache)
+3. install dependencies with `npm install` and `pip install requirements.txt`
+4. in backend/src/config.py set the ip adress of *ip_audio_server* to the ip adress of your local machine
+5. in *frontend/src/components/NavBar/utils.js*, also set the ip adress of your local machine
+6. start backend: `uvicorn "src.backend_v1:app" --host "0.0.0.0" --reload`, start frontend: `npm start`

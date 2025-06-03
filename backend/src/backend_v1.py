@@ -148,7 +148,7 @@ def search_soundscapes(text, max_results=50):
     return searchResults
 
 def zip_audio_and_playlist(playlist):
-     
+ 
     zip_buffer = io.BytesIO()
     json_data = []
 
@@ -167,6 +167,7 @@ def zip_audio_and_playlist(playlist):
         zipf.write(csv_file_path)  # add csv file 
         zipf.write(json_file_path)
 
+        print(zipf)
         for soundscape in playlist: # add audio files
             file_path = os.path.join(audio_folder, soundscape.file_name + ".wav")
             with open(file_path, "rb") as audio_file:
@@ -205,6 +206,7 @@ def get_soundscapes():
 def get_soundscapes(features: Radar_Attributes):
     inputVector = [features.pleasant, features.vibrant, features.eventful, features.chaotic, features.annoying, 
                    features.monotonous, features.uneventful, features.calm]
+    
     soundscapes = get_soundscapes_nn(inputVector)
 
     return soundscapes

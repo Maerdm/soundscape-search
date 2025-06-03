@@ -10,8 +10,8 @@ import {baseurl} from '../../ip_config.js';
 const api_setDatabase = axios.create({baseURL: `${baseurl}setDatabase`});
 
 function SelectDatasetComponent() {
-  const [dataset, setDataset] = useState('dataset_demo');
-  const [allDatasets, setAllDatasets] = useState(['dataset_demo']);
+  const [dataset, setDataset] = useState('dataset');
+  const [allDatasets, setAllDatasets] = useState(['dataset']);
   
   useEffect(() => {
     (async () => {

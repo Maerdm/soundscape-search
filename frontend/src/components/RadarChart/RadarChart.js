@@ -63,14 +63,14 @@ function RadarChart() {
     return (
         <div className="radarContainer"> 
 
-                <Slider name="pleasant" currentValue={pleasant_slider} onChange={(e) => onSliderChange(e.target)}/>
-                <Slider name="vibrant" currentValue={vibrant_slider} onChange={(e) => onSliderChange(e.target)}/>
                 <Slider name="eventful"currentValue={eventful_slider} onChange={(e) => onSliderChange(e.target)}/>
-                <Slider name="chaotic" currentValue={chaotic_slider} onChange={(e) => onSliderChange(e.target)}/>
-                <Slider name="annoying"currentValue={annoying_slider} onChange={(e) => onSliderChange(e.target)}/>
-                <Slider name="monotonous"currentValue={monotonous_slider} onChange={(e) => onSliderChange(e.target)}/>
-                <Slider name="uneventful"currentValue={uneventful_slider} onChange={(e) => onSliderChange(e.target)}/>
+                <Slider name="vibrant" currentValue={vibrant_slider} onChange={(e) => onSliderChange(e.target)}/>
+                <Slider name="pleasant" currentValue={pleasant_slider} onChange={(e) => onSliderChange(e.target)}/>
                 <Slider name="calm"currentValue={calm_slider} onChange={(e) => onSliderChange(e.target)}/>
+                <Slider name="uneventful"currentValue={uneventful_slider} onChange={(e) => onSliderChange(e.target)}/>
+                <Slider name="monotonous"currentValue={monotonous_slider} onChange={(e) => onSliderChange(e.target)}/>
+                <Slider name="annoying"currentValue={annoying_slider} onChange={(e) => onSliderChange(e.target)}/>
+                <Slider name="chaotic" currentValue={chaotic_slider} onChange={(e) => onSliderChange(e.target)}/>
 
             <div className="radarChart">
                <Radar
@@ -84,14 +84,14 @@ function RadarChart() {
 
                     data={{
                         variables: [
-                        {key: 'pleasant', label: 'pleasant'},
-                        {key: 'vibrant', label: 'vibrant'},
                         {key: 'eventful', label: 'eventful'},
-                        {key: 'chaotic', label: 'chaotic'},
-                        {key: 'annoying', label: 'annoying'},
-                        {key: 'monotonous', label: 'monotonous'},
+                        {key: 'vibrant', label: 'vibrant'},
+                        {key: 'pleasant', label: 'pleasant'},
+                        {key: 'calm', label: 'calm'},
                         {key: 'uneventful', label: 'uneventful'},
-                        {key: 'calm', label: 'calm'}
+                        {key: 'monotonous', label: 'monotonous'},
+                        {key: 'annoying', label: 'annoying'},
+                        {key: 'chaotic', label: 'chaotic'},
                         ],
                         sets: [
                         {

@@ -383,14 +383,15 @@ const GraphVisualization = () => {
         .call(g => g.selectAll('.tick line').attr('stroke', '#adb5bd'))
         .call(g => g.selectAll('.tick text')
           .attr('fill', '#495057')
-          .style('text-anchor', 'middle')); // Center text for horizontal alignment
+          .style('text-anchor', 'middle')
+          .style('font-size', '12px'));
 
       // Add X-axis label - determine label based on audio length
       const xAxisLabel = audioLengthSeconds >= 60 ? 'Time (min:sec)' : 'Time (seconds)';
       g.append('text')
         .attr('transform', `translate(${width / 2}, ${height + 35})`) // Increased vertical offset
         .style('text-anchor', 'middle')
-        .style('font-size', '12px')
+        .style('font-size', '14px')
         .style('fill', '#495057')
         .text(xAxisLabel);
 
@@ -413,7 +414,9 @@ const GraphVisualization = () => {
           }))
         .call(g => g.select('.domain').attr('stroke', '#adb5bd'))
         .call(g => g.selectAll('.tick line').attr('stroke', '#adb5bd'))
-        .call(g => g.selectAll('.tick text').attr('fill', '#495057'));
+        .call(g => g.selectAll('.tick text')
+          .attr('fill', '#495057')
+          .style('font-size', '12px'));
       
       // Add grid lines
       g.append('g')
@@ -460,7 +463,7 @@ const GraphVisualization = () => {
         .attr('x', -height / 2)
         .attr('dy', '1em')
         .style('text-anchor', 'middle')
-        .style('font-size', '12px')
+        .style('font-size', '14px')
         .style('fill', '#495057')
         .text(yAxisLabels[i]); 
     }
